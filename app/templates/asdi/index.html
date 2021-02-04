@@ -1,0 +1,142 @@
+{% extends "layout/ucp.html" %}
+
+{% block meta %}
+<meta name="robots" content="index">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<link rel="shortcut icon" type="image/x-icon" href="{{url_for('static',filename='logo_t.png')}}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:site_name" content="ASDI-RDC">
+
+{% endblock meta %}
+
+{% block othercss %}
+<link href="{{ url_for('static', filename='card.css')}}" rel="stylesheet">
+{%endblock%}
+
+
+{% block body %}
+{% include 'element/menu.html' %}
+{% include 'element/slider.html' %}
+{% include 'element/agir.html' %}
+{% include 'element/mission.html' %}
+{% include 'element/domaine.html' %}
+{% include 'element/aide.html' %}
+
+
+<!-- PUBLICATION -->
+{%if pub !=[]%}
+<section class="home-blog-area pb-padding section-padding30">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-10 ">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-80">
+                    <h2 style="color:#AC9757; font-weight: bold;">Nos dernières publications</h2>
+                    <p
+                        style="font-size: 30px; color: black; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                        Suivez les actualités de l'<b style="color: black;">A</b>ction de <b style="color: black;">
+                            S</b>olidarité pour le <b style="color: black;">D</b>éveloppement <b
+                            style="color: black;">I</b>ntegré - RDC</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {%for publication in pub%}
+            <div class="col-md-4">
+                <div class="card card-blog">
+                    <div class="card-image">
+                        <a href="#"> <img class="img" height="375.4px" width="370px"
+                                src="{{url_for('static', filename='publication/{}'.format(publication.url_img))}} ">
+                        </a>
+                        <div class="ripple-cont"></div>
+                    </div>
+                    <div class="table">
+                        <br>
+                        <div>
+                            <ul class="blog-info-link">
+                                <li><a href="#"><i class="far fa-thumbs-up"></i>{{publication.nbr_like}}</a></li>
+                                <li><a href="#"><i class="fa fa-eye"></i>{{publication.nbr_lu}}</a></li>
+                                <li><a href="#"><i class="far fa-comments"></i> </i>{{publication.nbr_cmt}}</a></li>
+                            </ul>
+                        </div>
+
+                        <h4 class="card-caption">
+                            <a href="{{url_for('asdi.article', slug=publication.slug)}}  "
+                                style="font-size: 20px;">{{publication.titre}} </a>
+                        </h4>
+                        <div class="ftr">
+                            <div class="author">
+                            </div>
+                            {%if publication.date_pub==publication.date_mod%}
+                            <div class="stats"> <i class="fa fa-clock-o"></i> {{timeagos(publication.date_pub)}} </div>
+                            {%else%}
+                            <div class="stats"> <i class="fa fa-clock-o"></i> {{timeagos(publication.date_mod)}} </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-12 text-center">
+                <a href="#" class="border-btn">Plus d'actualités</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+{%endif%}
+
+<div class="container" style="margin-bottom: 50px; margin-top: 70px;">
+    <h2 style="color: black; text-align:center;border-bottom:solid 1px #eee; font-size: 20px; font-size: 30px; font-weight: bold;">
+        Nos Partenaires</h2>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="Carousel" class="carousel slide">
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+    
+                        <div class="item active">
+                            <div class="row text-center" style="margin-top:10px;">
+                                <div class="col-md-2 col-xs-4 text-center"><a href="https://www.unocha.org/drc" class="thumbnail"><img
+                                            src="{{url_for('static', filename='logo/ocha.png')}}" alt="Image"
+                                            style="height:80px; width: 170px;"></a></div>
+                                <div class="col-md-2 col-xs-4 text-center"><a href="https://www.unicef.org/drcongo/"
+                                        class="thumbnail"><img src="{{url_for('static', filename='logo/unice.png')}}"
+                                            alt="Image" style="height:75px; width: 180px;"></a></div>
+                                <div class="col-md-2 col-xs-4"><a href="https://www.sante.gouv.cd/" class="thumbnail"><img
+                                            src="{{url_for('static', filename='logo/sante.png')}}" alt="Image"
+                                            style="height:70px; width: 170px;"></a></div>
+                                <div class="col-md-2 col-xs-4 text-center"><a href="www.ned.org"
+                                        class="thumbnail"><img src="{{url_for('static', filename='logo/ned.png')}}"
+                                            alt="Image" style="height:60px; width: 170px;"></a></div>
+    
+                                <div class="col-md-2 col-xs-4 text-center"><a href="https://www.rescue.org/country/democratic-republic-congo"
+                                        class="thumbnail"><img src="{{url_for('static', filename='logo/don.jpg')}}"
+                                            alt="Image" style="height:70px; width: 70px;"></a></div>
+                                <div class="col-md-2 col-xs-4 text-center"><a href="https://drc.unfpa.org/fr"
+                                        class="thumbnail"><img src="{{url_for('static', filename='logo/unfpa.png')}}"
+                                            alt="Image" style="height:40px; width: 150px;"></a></div>
+                            </div>
+                            <!--.row-->
+                        </div>
+                        <!--.item-->
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% endblock body %}
+
+{% block sijax %}
+<script>
+    $(document).ready(function () {
+        $('#Carousel').carousel({
+            interval: 3000
+        })
+    });
+</script>
+
+{% endblock %}
