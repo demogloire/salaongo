@@ -1,5 +1,5 @@
 from .. import db
-from ..models import Historique, Internaute, Visiteur
+from ..models import Historique, Internaute
 from slugify import slugify
 from datetime import datetime, date
 import os
@@ -63,17 +63,17 @@ def macadress():
 
 
 #Ideintification de l'utilisateur sur base de l'adresse MAC
-def user_mac():
-    adre_unique_mac=macadress()
-    code_user=code_usermac()
-    verification_visteur=Visiteur.query.filter_by(adress_mac=adre_unique_mac).first()
-    if verification_visteur is None:
-        visiteur_user=Visiteur(pseudonyme=code_user, adress_mac=adre_unique_mac)
-        db.session.add(visiteur_user)
-        db.session.commit()
-        return visiteur_user.id
-    else:
-        return verification_visteur.id
+# def user_mac():
+#     adre_unique_mac=macadress()
+#     code_user=code_usermac()
+#     verification_visteur=Visiteur.query.filter_by(adress_mac=adre_unique_mac).first()
+#     if verification_visteur is None:
+#         visiteur_user=Visiteur(pseudonyme=code_user, adress_mac=adre_unique_mac)
+#         db.session.add(visiteur_user)
+#         db.session.commit()
+#         return visiteur_user.id
+#     else:
+#         return verification_visteur.id
 
 
 #Enregistremt de l'article lu en cours

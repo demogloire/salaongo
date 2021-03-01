@@ -4,7 +4,7 @@ from ..models import User, Publication, Categorie, Like, Historique, Commentaire
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime, date
 import flask_sijax
-from ..utilites.utility import ver_enre_article, ver_enre_lu, enr_art, lesvisteurs, title_page, slug_publication, message_historique, date_modification,user_mac
+from ..utilites.utility import ver_enre_article, ver_enre_lu, enr_art, lesvisteurs, title_page, slug_publication, message_historique, date_modification
 from . import asdi
 import timeago
 from .forms import FormCommetaire, FormCommetaired
@@ -61,7 +61,7 @@ def accueil():
     #Visteur en ligne
     lesvisteurs()
     # L'utilisateur en cours
-    mac_utilisateur=user_mac()
+    # mac_utilisateur=user_mac()
     #Liste des actualités sur la plateforme
     pub=Publication.query.filter(Publication.statut==True, Categorie.nom=='Actualités').order_by(Publication.id.asc()).limit(6).all()
     return render_template('asdi/index.html',title=title, pub=pub)
