@@ -23,6 +23,8 @@ def publication_doc(document):
 
 #Enregistrement du fichier 
 def save_image_mod(form_picture, ancien):
+    if form_picture is None:
+        return None
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext

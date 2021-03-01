@@ -45,6 +45,8 @@ class Fichier(db.Model):
     url_pdf= db.Column(db.String(128))
     date_mod=db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     publication_id = db.Column(db.Integer, db.ForeignKey('publication.id'), nullable=False) 
+    promotion_id = db.Column(db.Integer, db.ForeignKey('promotion.id'), nullable=False) 
+
     def __repr__(self):
         return ' {} '.format(self.url_img)
 
@@ -69,6 +71,7 @@ class Internaute(db.Model):
     nombre_vis = db.Column(db.Integer, default=0)
     date_mod=db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     date_vist=db.Column(db.Date)
+    downloads=db.relationship('Download', backref='internaute_download', lazy='dynamic')
     def __repr__(self):
         return ' {} '.format(self.nombre_v_par)
 
@@ -76,7 +79,7 @@ class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_publication=db.Column(db.Integer, db.ForeignKey('publication.id'), nullable=False) 
     def __repr__(self):
-        return ' {} '.format(self.nombre_v_par)
+        return ' {} '.format(self.id_publication)
 
 
 
@@ -110,6 +113,49 @@ class Comment(db.Model):
     commentaire_id = db.Column(db.Integer, db.ForeignKey('commentaire.id'), nullable=False) 
     def __repr__(self):
         return ' {} '.format(self.commentaire)
+
+        #kinguse-josue@
+
+
+class Promotion (db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    nom_promotion= db.Column(db.String(200))
+    url= db.Column(db.String(200))
+    date_debut=db.Column(db.Date)
+    date_fin=db.Column(db.Date)
+    statut=db.Column(db.Boolean, default=True)
+    fichiers=db.relationship('Fichier', backref='promotion_fichier', lazy='dynamic')
+    def __repr__(self):
+        return ' {} '.format(self.url)
+
+
+
+class Categorieplaylist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type_musique= db.Column(db.String(200))
+    statut=db.Column(db.Boolean, default=True)
+    playlists= db.relationship('Playlist', backref='categoriePlaylist_playlist', lazy='dynamic')
+    def __repr__(self):
+        return ' {} '.format(self.type_musique)
+
+
+class Playlist (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    url= db.Column(db.String(200))
+    categoriePlaylist_id = db.Column(db.Integer, db.ForeignKey('categorieplaylist.id'), nullable=False)
+    def __repr__(self):
+        return ' {} '.format(self.url)
+
+
+
+class Download (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    url_musique= db.Column(db.String(200))
+    url_video= db.Column(db.String(200))
+    id_internaute=db.Column(db.Integer, db.ForeignKey('internaute.id'), nullable=False)
+    def __repr__(self):
+        return ' {} '.format(self.url_musique)
+
 
 
 

@@ -24,9 +24,16 @@ bcrypt = Bcrypt()
 path = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
 
 def create_app(config_name):
+    # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
-    app.config.from_pyfile('config.py')
+    app.config.from_pyfile( 'config.py')
+
+
+    app.config.from_mapping(
+        CLOUDINARY_URL=os.environ.get('CLOUDINARY_URL') or 'Pegue a sua Key',
+
+    )
 
     
     # #Bootstrap(app)
@@ -84,5 +91,19 @@ def create_app(config_name):
 
     from .asdi import asdi as asdi_blueprint
     app.register_blueprint(asdi_blueprint)
+
+    from .promotion import promotion as promotion_blueprint
+    app.register_blueprint(promotion_blueprint)
+
+    from .categorieMusique import categorieMusique as categorieMusique_blueprint
+    app.register_blueprint(categorieMusique_blueprint)
+
+    from .play_list import play_list as play_list_blueprint
+    app.register_blueprint(play_list_blueprint)
+
+    from .internaute import internaute as internaute_blueprint
+    app.register_blueprint(internaute_blueprint)
+    
     
     return app
+

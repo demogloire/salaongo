@@ -117,6 +117,29 @@ def ver_enre_lu(id_art):
         variable=False
     return variable
 
+
+def split_string(data):
+    data_split=data.split('-')
+    return data_split
+
+def date_sup_ver(premier, deuxieme):
+    date_string_un=str(premier)
+    date_string_deux=str(deuxieme)
+    date_un_split=split_string(date_string_un)
+    date_deux_split=split_string(date_string_deux)
+    print(date_deux_split,date_un_split,'------------------------------------' )
+    ver_date_une=datetime(int(date_un_split[2]), int(date_un_split[1]), int(date_un_split[0]))
+    ver_date_deux=datetime(int(date_deux_split[2]), int(date_deux_split[1]), int(date_deux_split[0]))
+    return ver_date_deux > ver_date_une
+
+
+
+    
+
+
+
+
+
     
 
     
